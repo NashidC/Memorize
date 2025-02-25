@@ -7,37 +7,44 @@
 
 import SwiftUI
 
+//ContentView structure defines the main view of the app
 struct ContentView: View {
     
     let emojis = [ "👻", "🎃","🕷","😈", "🕸", "🧙🏻‍♀️", "🙀", "👹", "😱", "☠️", "🍭"]
+    //state var that controls initial number of cards displayed on screen
     @State var cardCount: Int = 4
     
     var body: some View {
-        VStack {
+        VStack { //arrangees views vertically
+            ScrollView {
             cards
-            .foregroundColor(.orange)
-            
-            HStack {
+            }
+            Spacer()
+            HStack { //arranges buttons horizontally
                 Button(action: {
-                    
                 }, label: {
-                    
                 })
                 cardAdder
                 Spacer()
                 cardRemover
             }
         }
-           
+    
             .padding()
-    }
+}
+    
+   
     
     var cards: some View {
-        HStack {
+        //gridview that adaps to screensize
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
+            //loops through numbers - count and creates cardView
             ForEach(0..<cardCount, id: \.self) { index in
-                CardView(content: emojis[index])
+                CardView(content: emojis[index]) //each card shows an emoji from the list
+                    .aspectRatio(2/3, contentMode: .fit)
             }
         }
+        .foregroundColor(.orange)
     }
     
     var cardRemover: some View {
@@ -65,19 +72,21 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct CardView: View {
-    let content: String
-    @State var isFaceUp: Bool = true
+    let content: String //emoji that will be displayed on card
+    @State var isFaceUp: Bool = true //keeps track of face up/face down
+    
     var body: some View {
         ZStack {
             let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12)
-            if isFaceUp {
+            Group {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
-            Text(content).font(.largeTitle)
+                Text(content).font(.largeTitle)
                 
-            } else {
-                base.fill()
             }
+            .opacity(isFaceUp ? 1 : 0) //front side of card is visible if face up
+            base.fill().opacity(isFaceUp ? 0 : 1)//back side is visible if face down
+            
         }.onTapGesture {
             isFaceUp.toggle()
         }
