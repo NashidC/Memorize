@@ -14,11 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                ForEach(0..<cardCount, id: \.self) { index in
-                    CardView(content: emojis[index])
-                }
-            }
+            cards
             .foregroundColor(.orange)
             
             HStack {
@@ -27,18 +23,38 @@ struct ContentView: View {
                 }, label: {
                     
                 })
-                
-                Button("Add Card") {
-                    cardCount += 1
-                }
+                cardAdder
                 Spacer()
-                Button("Remove Card") {
-                    cardCount -= 1
-                }
+                cardRemover
             }
         }
            
             .padding()
+    }
+    
+    var cards: some View {
+        HStack {
+            ForEach(0..<cardCount, id: \.self) { index in
+                CardView(content: emojis[index])
+            }
+        }
+    }
+    
+    var cardRemover: some View {
+        Button("Remove Card") {
+            if cardCount > 1  {
+            cardCount -= 1
+            }
+        }
+    }
+    
+    var cardAdder: some View {
+        Button("Add Card") {
+            if cardCount < emojis.count {
+            cardCount += 1
+            }
+            
+        }
     }
 }
 
