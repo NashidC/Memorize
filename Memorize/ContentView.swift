@@ -22,6 +22,12 @@ struct ContentView: View {
             .foregroundColor(.orange)
             
             HStack {
+                Button(action: {
+                    
+                }, label: {
+                    
+                })
+                
                 Button("Add Card") {
                     cardCount += 1
                 }
