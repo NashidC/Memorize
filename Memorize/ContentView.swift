@@ -12,23 +12,23 @@ struct ContentView: View {
     
     let emojis = [ "👻", "🎃","🕷","😈", "🕸", "🧙🏻‍♀️", "🙀", "👹", "😱", "☠️", "🍭"]
     //state var that controls initial number of cards displayed on screen
-    @State var cardCount: Int = 4
+//    @State var cardCount: Int = 4
     
     var body: some View {
-        VStack { //arrangees views vertically
+//        VStack { //arrangees views vertically
             ScrollView {
             cards
             }
-            Spacer()
-            HStack { //arranges buttons horizontally
-                Button(action: {
-                }, label: {
-                })
-                cardAdder
-                Spacer()
-                cardRemover
-            }
-        }
+//            Spacer()
+//            HStack { //arranges buttons horizontally
+//                Button(action: {
+//                }, label: {
+//                })
+//                cardAdder
+//                Spacer()
+//                cardRemover
+//            }
+//        }
     
             .padding()
 }
@@ -37,9 +37,9 @@ struct ContentView: View {
     
     var cards: some View {
         //gridview that adaps to screensize
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 85))]) {
             //loops through numbers - count and creates cardView
-            ForEach(0..<cardCount, id: \.self) { index in
+            ForEach(emojis.indices, id: \.self) { index in
                 CardView(content: emojis[index]) //each card shows an emoji from the list
                     .aspectRatio(2/3, contentMode: .fit)
             }
@@ -47,22 +47,22 @@ struct ContentView: View {
         .foregroundColor(.orange)
     }
     
-    var cardRemover: some View {
-        Button("Remove Card") {
-            if cardCount > 1  {
-            cardCount -= 1
-            }
-        }
-    }
-    
-    var cardAdder: some View {
-        Button("Add Card") {
-            if cardCount < emojis.count {
-            cardCount += 1
-            }
-            
-        }
-    }
+//    var cardRemover: some View {
+//        Button("Remove Card") {
+//            if cardCount > 1  {
+//            cardCount -= 1
+//            }
+//        }
+//    }
+//
+//    var cardAdder: some View {
+//        Button("Add Card") {
+//            if cardCount < emojis.count {
+//            cardCount += 1
+//            }
+//
+//        }
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
